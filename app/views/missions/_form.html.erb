@@ -1,0 +1,33 @@
+<% if @mission.errors.any? %>
+  <div class="notice alert-warning">
+      <p>There were some errors:</p>
+      <br>
+        <% @mission.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+    </div>
+<% end %>
+<br>
+
+<%= form_for @mission do |f| %>
+
+  <%= f.hidden_field :user_id %>
+
+  <div class="form-group">  
+    <%= f.label :importances, class: "control-label font-weight-bold" %>
+      
+      <%= f.select :importances, [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]],{}, {class: "form-control "}%>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :objectives, class: "font-weight-bold" %>
+    
+      <%= f.text_area :objectives, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit class: 'btn btn-info' %>
+  </div>
+  
+<% end %>
+

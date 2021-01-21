@@ -1,0 +1,38 @@
+<% title 'Profile' %>
+
+<h1 class="text-center">Welcome: <%= @current_user.code_name %></h1>
+
+<ul class="list-group"> 
+    <% if @current_user.general%>
+        <h3>Your Troops:</h3>
+        <% @current_user.soldiers.each do |soldier| %>
+            <h5><%=
+                    link_to soldier.name,
+                    user_soldier_path(@current_user.code_name, soldier.id), 
+                    class: " list-group-item list-group-item-danger" 
+                %>
+            </h5>
+
+
+            
+        <% end %>
+        <p class="text-center pt-1"> 
+            <%=
+                link_to "New Recruit",
+                new_user_soldier_path(@current_user.code_name),
+                class: "btn btn-primary" 
+            %> 
+        </p>
+      <%= link_to user_soldiers_path(@current_user) %>
+    <% else%>
+        <h3>Top secret missions:</h3>
+        <% @current_user.missions.each do |mission| %>
+            <h4><%= 
+                    link_to mission.soldier.name+' - '+danger_levels(mission.importances),
+                    mission_path(mission),
+                    class: " list-group-item list-group-item-danger" 
+                %>
+            </h4>
+        <% end %>
+    <% end %>
+</ul>

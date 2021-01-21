@@ -1,0 +1,107 @@
+<% title 'Soldier' %>
+
+<div class="container-fluid">
+<%= link_to "Back to soldiers", soldiers_path %>
+
+
+<table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Soldier name:</th>
+      <th scope="col"><%= @soldier.name %></th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">social_security:</th>
+      <td><%= @soldier.social_security %></td>
+     
+    </tr>
+    <tr>
+      <th scope="row">confirmed_kills:</th>
+      <td><%= @soldier.confirmed_kills %></td>
+      
+    </tr>
+    <tr>
+      <th scope="row">combat_experience: </th>
+      <td colspan="2"><%= @soldier.combat_experience %><br></td>
+    
+    </tr>
+
+ <tr>
+      <th scope="row">General: </th>
+      <td colspan="2"><%= @soldier.general_name %></td>
+     
+    </tr>
+
+ <tr>
+      <th scope="row">Mission Danger Level: </th>
+      <td colspan="2"><%= danger_levels(@soldier.danger_level) %></td>
+     
+    </tr>
+
+
+
+  </tbody>
+</table>
+
+
+
+
+  <h5><p>Missions:</h5>
+  <div class="row justify-content-center">
+  <ul class="list-group col-sm-8"> 
+  <% @soldier.missions.each do |mission| %></p>
+    <% if mission.id%>
+    
+      <%= link_to(mission_path(mission), class: " list-group-item list-group-item-action ") do %>
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1"><%= mission.user.code_name%></h5>
+          <small><%= danger_levels(mission.importances)%></small>
+        </div>
+     <p class="mb-1"><%= mission.objectives%></p>
+      <% end %>
+    
+    <%end%>
+  <% end %>
+  </ul>
+  </div>
+<p class="col-6"><b>Add mission:</b></p>
+<%= form_for @mission, html: {class: 'form-horizontal'} do |f| %>
+
+
+  <div class="form-group row justify-content-center">
+    <%= f.label :objectives, class: "control-label" %>
+    <div class="text-danger">
+      <%= f.text_area :objectives %>
+      </div>
+
+  <div class="form-group row justify-content-center">
+    <%= f.label :danger_level, class: "col-md-2 control-label" %>
+    <div class="col-6">
+    <br>
+      <%= f.select :importances, [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10]],{}, {class: "form-control "} %>
+    </div>
+  </div>
+
+  
+  </div>
+  <div class="form-group row justify-content-center">
+    <%= f.submit class: 'btn btn-danger btn-lg btn-block' %>
+  </div>
+
+  <%= f.hidden_field :soldier_id%>
+    <%= f.hidden_field :user_id%>
+
+
+<% end %>
+
+
+<% if @current_user == @soldier.general %> 
+  <%= link_to "Edit", edit_user_soldier_path(@soldier.general_name, @soldier), class: 'btn btn-dark info col-sm-4' %> 
+  <%= form_tag soldier_path(@soldier), method: "delete", data: { confirm: "Are you sure?" } do %>
+    <%= submit_tag "Delete", class: 'btn btn-warning col-sm-4' %>
+  <% end %> 
+<% end %>
+<div>

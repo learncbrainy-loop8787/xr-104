@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-md fixed-bottom navbar-light" style="background-color: #6c757d;">
+    <%= link_to 'WAR LORDS PROMISE', '/', class: "btn btn-danger"%>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <% if logged_in? %>
+                <li class="nav-item ">
+                    <%= link_to(user_path(current_user.code_name), class: "nav-link") do %>
+                        Profile<span class="sr-only">(current)</span>
+                    <% end %>
+                </li>
+
+                <li class="nav-item">
+                    <%= link_to('All Soldiers', soldiers_path, class: "nav-link") %>
+                </li>
+                <li class="col"
+">
+                    <%= link_to(
+                        "Log Out", logout_path,
+                        method: :post, 
+                        class: 'btn btn-danger'
+                    ) %>
+                </li>
+            <% else %>
+                <li class="container">
+                    <%= link_to('Log In', login_path, class: "btn btn-danger") %>
+                </li>
+                <br>
+                <li class="container">
+                    <%= link_to('Sign Up', signup_path, class: "btn btn-danger") %>
+                </li>
+            <% end %>
+
+           
+        </ul>
+        
+    </div>
+
+</nav>
+

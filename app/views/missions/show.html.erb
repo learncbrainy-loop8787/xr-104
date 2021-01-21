@@ -1,0 +1,54 @@
+<% title 'Mission' %>
+
+<div class="jumbotron">
+    <h1 class="display-4"><%= @mission.soldier.name %></h1>
+    <hr class="my-4">
+    <div class='row justify-content-center'>
+        <div class="text-danger"><h4>Mission by : </h4></div>
+        <div class="col-sm-4"><h4><%= @mission.user.code_name %> </h4></div>
+        <br>
+    
+        <div class="text-danger"><h4>Importants: </h4></div>
+        <div class="col-sm-4"><h4><%= danger_levels(@mission.importances) %> </h4></div>
+    </div>
+    <div class="row justify-content-center pt-sm-4"></div>
+        <div class="text-danger"><h4>Objectives: </h4></div>
+        <div class="col-sm-4"><p><%= @mission.objectives %></p></div>
+        
+        
+    </div>
+    <div class="content-center">
+        <div class="col-sm-6 col-sm-offset-3" style="padding-top: 50px">
+            <%= 
+                link_to "Back",
+                user_soldier_path(@mission.soldier.general.code_name, @mission.soldier) ,
+                class: "btn btn-dark btn-lg btn-block"
+            %>
+        </div>
+    </div>
+    <div class="content-center">
+        <div class="col-sm-6 col-sm-offset-3" style="padding-top: 30px">
+            <%= link_to_if(@current_user == @mission.user,
+                            "Edit Mission",
+                            edit_mission_path(@mission),
+                            class: "btn btn-info btn-lg btn-block") do %>
+            <% end %>
+        </div>
+    </div>
+    <div class="content-center">
+        <div class="col-sm-6 col-sm-offset-3" style="padding-top: 30px">
+        <%= link_to_if(@current_user == @mission.user,
+                        "Delete Mission", 
+                        mission_path(@mission), 
+                        {method: :delete, class: "btn btn-danger btn-lg btn-block"}
+                        ) do %>
+        <% end %>
+
+
+
+
+
+        </div>
+    </div>
+</div>
+

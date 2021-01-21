@@ -1,0 +1,24 @@
+<% title 'All Soldiers'%>
+
+
+
+<%=link_to "Top Ten Soldiers!", soldiers_top_ten_path %>
+<%=link_to "Top kills Soldiers!", soldiers_top_kills_path %>
+
+
+<div class="container">
+  <div class="row">
+    <% @soldiers.each do |soldier| %>
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= soldier.name %></h5>
+            <%= link_to "View", user_soldier_path(soldier.general_name,soldier), class: 'btn btn-primary' %>
+       
+          </div>
+        </div>
+      </div>
+    <% end %>
+ </div>
+</div>
+ 

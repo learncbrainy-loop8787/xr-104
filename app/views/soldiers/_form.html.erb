@@ -1,0 +1,48 @@
+<% if @soldier.errors.any? %>
+  <div class="alert alert-danger row justify-content-center" role="alert">
+      <div id="error_explanation">
+          <h2><%= pluralize(@soldier.errors.count, "error") %> prohibited this book from saving:</h2>
+          <ul>
+          <% @soldier.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+          <% end %>
+          </ul>
+      </div>
+  </div>
+<% end %>
+
+<div class="container">
+  <%= form_for @soldier do |f| %>
+    <div class="form-group">
+      <%= f.label :name, class: "text-danger" %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+
+    
+    <div class="form-group">
+      <%= f.label :social_security, class: "text-danger" %>
+      <%= f.text_field :social_security, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "confirmed_kills", class: "text-danger" %>
+      <%= f.number_field :confirmed_kills, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "combat_experience", class: "text-danger" %>
+      <%= f.number_field :combat_experience, class: 'form-control' %>
+    </div>
+
+
+    <div class="form-group">
+      <%= f.label :resume, class: "text-danger" %>
+      <%= f.text_area :resume, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+    <%= link_to "Back",soldiers_path, class: 'btn btn-secondary px-5' %>
+      <%= f.submit class: 'btn btn-danger' %>
+    </div>
+  <% end %>
+</div>
